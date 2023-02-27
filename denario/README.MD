@@ -36,12 +36,11 @@ Cada uno de estas secciones tiene un CRUD (Alta, Baja, Modificación)
     [x] Actix
     [] _Features (Una carpeta con mod.rs / service.rs (modelo) / routes.rs / controller )_ (OPCIONAL)
     [] Backup de esta estructura para futuros proyectos sin importar de que forma se almacene la información en una base de datos
-[] Crear la estructura de la app con sus cruds
-    [] Registros
-    [] Categorías
-    [] Créditos
-    [] Dolar (prioridad baja)
-[] Hacer los CRUDS funcionales
+[x] Crear la estructura de la app con sus cruds
+    [x] Registros
+    [x] Categorías
+    [x] Créditos
+    [x] Dolar (prioridad baja)
 [] hacer la pantalla principal
     [] Mostrar los registros
     [] Mostrar los subtotales del mes

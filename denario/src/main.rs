@@ -6,15 +6,8 @@ use std::env;
 
 mod seeds;
 mod features;
+mod db_conn;
 
-#[get("/seeds/setup")]
-async fn seed_setup() -> impl Responder {
-    seeds::setup();
-    seeds::populate_categories();
-    const MESSAGE: &str = "Creating DB with Tables & populate tables";
-
-    HttpResponse::Ok().json(json!({"status": "success","message": MESSAGE}))
-}
 
 #[get("/api/healthchecker")]
 async fn health_checker_handler() -> impl Responder {
@@ -42,12 +35,29 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .service(health_checker_handler)
-            .service(seed_setup)
+            .service(seeds::req_seed_setup)
             .service(features::categories::find_all_categories)
             .service(features::categories::find_one_category)
             .service(features::categories::create_category)
             .service(features::categories::update_category)
             .service(features::categories::delete_category)
+            .service(features::records::find_all_records_filtered)
+            .service(features::records::find_all_records)
+            .service(features::records::find_one_record)
+            .service(features::records::create_record)
+            .service(features::records::update_record)
+            .service(features::records::delete_record)
+            .service(features::credits::find_all_credits_filtered)
+            .service(features::credits::find_all_credits)
+            .service(features::credits::find_one_credit)
+            .service(features::credits::create_credit)
+            .service(features::credits::update_credit)
+            .service(features::credits::delete_credit)
+            .service(features::dolars::find_all_dolars)
+            .service(features::dolars::find_one_dolar)
+            .service(features::dolars::get_last_dolar)
+            .service(features::dolars::create_dolar)
+            .service(features::dolars::delete_dolar)
             .wrap(Logger::default())
     })
     .bind((server_host, server_port))?
