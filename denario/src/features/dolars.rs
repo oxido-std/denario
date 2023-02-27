@@ -1,7 +1,7 @@
-use actix_web::{get,post,patch,delete, HttpResponse, Responder, web};
+use actix_web::{get,post,delete, HttpResponse, Responder, web};
 use serde::Deserialize;
 use serde_json::json;
-use rusqlite::{ Connection, NO_PARAMS,};
+use rusqlite::{ Connection};
 
 use super::super::db_conn::get_db_connection;
 
@@ -17,14 +17,14 @@ struct Dolar{
 }
 
 #[derive(Debug,Deserialize)]
-struct DtoDolar{
+pub struct DtoDolar{
     name:String,
     amount:f32,
     source:String,
 }
 
 #[get("/dolars")]
-async fn find_all_dolars() -> impl Responder {
+pub async fn find_all_dolars() -> impl Responder {
     
     let conn=get_db_connection();
     
@@ -35,7 +35,7 @@ async fn find_all_dolars() -> impl Responder {
 }
 
 #[get("/dolars/{id}")]
-async fn find_one_dolar(path: web::Path<(u32,)>) -> impl Responder {
+pub async fn find_one_dolar(path: web::Path<(u32,)>) -> impl Responder {
     let conn=get_db_connection();
     
     let id=path.into_inner().0;
@@ -46,7 +46,7 @@ async fn find_one_dolar(path: web::Path<(u32,)>) -> impl Responder {
 }
 
 #[get("/dolars/get_last/{name}")]
-async fn get_last_dolar(path: web::Path<(String,)>) -> impl Responder {
+pub async fn get_last_dolar(path: web::Path<(String,)>) -> impl Responder {
     let conn=get_db_connection();
     
     let name=path.into_inner().0;
@@ -58,7 +58,7 @@ async fn get_last_dolar(path: web::Path<(String,)>) -> impl Responder {
 }
 
 #[post("/dolars")]
-async fn create_dolar(data: web::Json<DtoDolar>) -> impl Responder {
+pub async fn create_dolar(data: web::Json<DtoDolar>) -> impl Responder {
     let conn=get_db_connection();
     
     let data=data.into_inner();
@@ -68,7 +68,7 @@ async fn create_dolar(data: web::Json<DtoDolar>) -> impl Responder {
     let source=data.source.to_string();
     
     let sql="INSERT INTO dolars (name,amount,source,created_at,is_deleted) VALUES (?1,?2,?3,datetime('now'),false)";
-    conn.execute(&sql,&[&name,&amount,&source]);
+    let _ =conn.execute(&sql,&[&name,&amount,&source]);
     
     // get last inserted category
     let last_id= conn.last_insert_rowid();
@@ -78,14 +78,14 @@ async fn create_dolar(data: web::Json<DtoDolar>) -> impl Responder {
 }
 
 #[delete("/dolars/{id}")]
-async fn delete_dolar(path: web::Path<(u32,)>) -> impl Responder {
+pub async fn delete_dolar(path: web::Path<(u32,)>) -> impl Responder {
     let conn=get_db_connection();
 
     let id=path.into_inner().0;
 
     // update
     let sql=format!("UPDATE dolars SET is_deleted=1, updated_at=datetime('now') WHERE id={}",id);
-    conn.execute(&sql,NO_PARAMS);
+    let _ =conn.execute(&sql,[]);
 
     HttpResponse::Ok().json(json!({"success": true,"deleted": id}   ))
 }

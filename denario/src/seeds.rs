@@ -1,5 +1,4 @@
 use actix_web::{get,HttpResponse, Responder};
-use rusqlite::NO_PARAMS;
 use serde_json::json;
 
 use super::db_conn::get_db_connection;
@@ -28,7 +27,7 @@ pub fn setup() {
         created_at TEXT NOT NULL,
         updated_at TEXT NULL,
         is_deleted BOOLEAN NOT NULL
-      )", NO_PARAMS).unwrap();
+      )", []).unwrap();
 
       conn.execute("CREATE TABLE categories (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,7 +35,7 @@ pub fn setup() {
         created_at TEXT NOT NULL,
         updated_at TEXT NULL,
         is_deleted BOOLEAN NOT NULL
-      )", NO_PARAMS).unwrap();
+      )", []).unwrap();
 
       conn.execute("CREATE TABLE credits (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -50,7 +49,7 @@ pub fn setup() {
         created_at TEXT NOT NULL,
         updated_at TEXT NULL,
         is_deleted BOOLEAN NOT NULL
-      )", NO_PARAMS).unwrap();
+      )", []).unwrap();
       
       conn.execute("CREATE TABLE dolars (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -59,7 +58,7 @@ pub fn setup() {
         source VARCHAR(255) NOT NULL,
         created_at TEXT NOT NULL,
         is_deleted BOOLEAN NOT NULL
-      )", NO_PARAMS).unwrap();
+      )", []).unwrap();
     
 }
 

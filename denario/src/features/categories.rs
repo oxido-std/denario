@@ -1,7 +1,7 @@
 use actix_web::{get,post,patch,delete, HttpResponse, Responder, web};
 use serde::Deserialize;
 use serde_json::json;
-use rusqlite::{ Connection, NO_PARAMS,};
+use rusqlite::{ Connection};
 
 use super::super::db_conn::get_db_connection;
 
@@ -50,7 +50,7 @@ async fn create_category(data: web::Json<DtoCategory>) -> impl Responder {
     let name=data.into_inner().name;
     
     let sql="INSERT INTO categories (name,created_at,updated_at,is_deleted) VALUES (?1,datetime('now'),datetime('now'),false)";
-    conn.execute(&sql,&[&name.to_string()]);
+    let _ =conn.execute(&sql,&[&name.to_string()]);
     
     // get last inserted category
     let last_id= conn.last_insert_rowid();
@@ -68,7 +68,7 @@ async fn update_category(path: web::Path<(u32,)>, data: web::Json<DtoCategory>) 
 
     // update
     let sql=format!("UPDATE categories SET name=?1, updated_at=datetime('now') WHERE id={}",id);
-    conn.execute(&sql,&[&name.to_string()]);
+    let _ =conn.execute(&sql,&[&name.to_string()]);
 
     // select updated category
     let sql=format!("SELECT * FROM categories WHERE id={id}");
@@ -84,7 +84,7 @@ async fn delete_category(path: web::Path<(u32,)>) -> impl Responder {
 
     // update
     let sql=format!("UPDATE categories SET is_deleted=1, updated_at=datetime('now') WHERE id={}",id);
-    conn.execute(&sql,NO_PARAMS);
+    let _ =conn.execute(&sql,[]);
 
     HttpResponse::Ok().json(json!({"success": true,"deleted": id}   ))
 }

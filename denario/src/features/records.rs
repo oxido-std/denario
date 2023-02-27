@@ -1,8 +1,7 @@
 use actix_web::{get,post,patch,delete, HttpResponse, Responder, web};
-use env_logger::filter;
 use serde::Deserialize;
 use serde_json::json;
-use rusqlite::{ Connection, NO_PARAMS,};
+use rusqlite::{ Connection};
 
 use super::super::db_conn::get_db_connection;
 
@@ -88,7 +87,7 @@ async fn create_record(data: web::Json<DtoRecord>) -> impl Responder {
     let category_id=data.category_id.to_string();
 
     let sql="INSERT INTO records (name,amount,amount_io,comment,record_date,category_id,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,?5,?6,datetime('now'),datetime('now'),false)";
-    conn.execute(&sql,&[&name,&amount,&amount_io,&comment,&record_date,&category_id]);
+    let _ =conn.execute(&sql,&[&name,&amount,&amount_io,&comment,&record_date,&category_id]);
     
     // get last inserted category
     let last_id= conn.last_insert_rowid();
@@ -113,7 +112,7 @@ async fn update_record(path: web::Path<(u32,)>, data: web::Json<DtoRecord>) -> i
 
     // update
     let sql=format!("UPDATE records SET name=?1,amount=?2,amount_io=?3,comment=?4,record_date=?5,category_id=?6,updated_at=datetime('now') WHERE id={}",id);
-    conn.execute(&sql,&[&name,&amount,&amount_io,&comment,&record_date,&category_id]);
+    let _ =conn.execute(&sql,&[&name,&amount,&amount_io,&comment,&record_date,&category_id]);
 
     // select updated category
     let sql=format!("SELECT * FROM records WHERE id={id}");
@@ -129,7 +128,7 @@ async fn delete_record(path: web::Path<(u32,)>) -> impl Responder {
 
     // update
     let sql=format!("UPDATE records SET is_deleted=1, updated_at=datetime('now') WHERE id={}",id);
-    conn.execute(&sql,NO_PARAMS);
+    let _ =conn.execute(&sql,[]);
 
     HttpResponse::Ok().json(json!({"success": true,"deleted": id}   ))
 }

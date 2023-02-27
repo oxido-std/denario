@@ -1,7 +1,7 @@
 use actix_web::{get,post,patch,delete, HttpResponse, Responder, web};
 use serde::Deserialize;
 use serde_json::json;
-use rusqlite::{ Connection, NO_PARAMS,};
+use rusqlite::{ Connection};
 
 use super::super::db_conn::get_db_connection;
 
@@ -92,7 +92,7 @@ async fn create_credit(data: web::Json<DtoCredit>) -> impl Responder {
     let category_id=data.category_id.to_string();
 
     let sql=format!("INSERT INTO credits (name,comment,amount,payments,started_at,finish_at,category_id,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,?5,date(?5,'+{} month'),?6,datetime('now'),datetime('now'),false)",payments);
-    conn.execute(&sql,&[&name,&comment,&amount,&payments,&started_at,&category_id]);
+    let _ =conn.execute(&sql,&[&name,&comment,&amount,&payments,&started_at,&category_id]);
     
     // get last inserted category
     let last_id= conn.last_insert_rowid();
@@ -117,7 +117,7 @@ async fn update_credit(path: web::Path<(u32,)>, data: web::Json<DtoCredit>) -> i
 
     // update
     let sql=format!("UPDATE credits SET name=?1,comment=?2,amount=?3,payments=?4,started_at=?5,finish_at=date(?5,'+{} month'),category_id=?6,updated_at=datetime('now') WHERE id={}",payments,id);
-    conn.execute(&sql,&[&name,&comment,&amount,&payments,&started_at,&category_id]);
+    let _ =conn.execute(&sql,&[&name,&comment,&amount,&payments,&started_at,&category_id]);
 
     // select updated category
     let sql=format!("SELECT * FROM credits WHERE id={id}");
@@ -133,7 +133,7 @@ async fn delete_credit(path: web::Path<(u32,)>) -> impl Responder {
 
     // update
     let sql=format!("UPDATE credits SET is_deleted=1, updated_at=datetime('now') WHERE id={}",id);
-    conn.execute(&sql,NO_PARAMS);
+    let _ =conn.execute(&sql,[]);
 
     HttpResponse::Ok().json(json!({"success": true,"deleted": id}   ))
 }
