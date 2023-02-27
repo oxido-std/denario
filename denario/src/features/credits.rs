@@ -2,6 +2,8 @@ use actix_web::{get,post,patch,delete, HttpResponse, Responder, web};
 use serde_json::json;
 use rusqlite::{ Connection};
 
+use crate::models::credit_model::SQLCredit;
+
 use super::super::db_conn::get_db_connection;
 use super::super::models::credit_model::{Credit,DtoCredit,FiltersCredit};
 
@@ -59,7 +61,7 @@ async fn create_credit(data: web::Json<DtoCredit>) -> impl Responder {
     let started_at=data.started_at.to_string();
     let category_id=data.category_id.to_string();
 
-    let sql=format!("INSERT INTO credits (name,comment,amount,payments,started_at,finish_at,category_id,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,?5,date(?5,'+{} month'),?6,datetime('now'),datetime('now'),false)",payments);
+    let sql=Credit::get_query_insert(&payments);
     let _ =conn.execute(&sql,&[&name,&comment,&amount,&payments,&started_at,&category_id]);
 
     // aquí debería hacer un insert en la records por cada cuota del crédito.
@@ -87,7 +89,7 @@ async fn update_credit(path: web::Path<(u32,)>, data: web::Json<DtoCredit>) -> i
     let category_id=data.category_id.to_string();
 
     // update
-    let sql=format!("UPDATE credits SET name=?1,comment=?2,amount=?3,payments=?4,started_at=?5,finish_at=date(?5,'+{} month'),category_id=?6,updated_at=datetime('now') WHERE id={}",payments,id);
+    let sql=Credit::get_query_update(&payments, id);
     let _ =conn.execute(&sql,&[&name,&comment,&amount,&payments,&started_at,&category_id]);
 
     // select updated category
@@ -103,7 +105,7 @@ async fn delete_credit(path: web::Path<(u32,)>) -> impl Responder {
     let id=path.into_inner().0;
 
     // update
-    let sql=format!("UPDATE credits SET is_deleted=1, updated_at=datetime('now') WHERE id={}",id);
+    let sql=Credit::get_query_delete(id);
     let _ =conn.execute(&sql,[]);
 
     // debería borrar cada uno de los regitros asociados a un crédito.

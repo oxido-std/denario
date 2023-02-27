@@ -2,8 +2,10 @@ use actix_web::{get,post,patch,delete, HttpResponse, Responder, web};
 use serde_json::json;
 use rusqlite::{ Connection};
 
+use crate::models::record_model::SQLRecord;
+
 use super::super::db_conn::get_db_connection;
-use super::super::models::record_model::{Record,DtoRecord,Record2Categories,FiltersRecord};
+use super::super::models::record_model::{Record,DtoRecord,Record2Categories,FiltersRecord,};
 
 #[get("/records/find_filtered")]
 async fn find_all_records_filtered(filters: web::Query<FiltersRecord>) -> impl Responder {
@@ -137,7 +139,7 @@ async fn create_record(data: web::Json<DtoRecord>) -> impl Responder {
     let record_date=data.record_date.to_string();
     let category_id=data.category_id.to_string();
 
-    let sql="INSERT INTO records (name,amount,amount_io,comment,record_date,category_id,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,?5,?6,datetime('now'),datetime('now'),false)";
+    let sql=Record::get_query_insert();
     let _ =conn.execute(&sql,&[&name,&amount,&amount_io,&comment,&record_date,&category_id]);
     
     // get last inserted category
@@ -162,7 +164,7 @@ async fn update_record(path: web::Path<(u32,)>, data: web::Json<DtoRecord>) -> i
     let category_id=data.category_id.to_string();
 
     // update
-    let sql=format!("UPDATE records SET name=?1,amount=?2,amount_io=?3,comment=?4,record_date=?5,category_id=?6,updated_at=datetime('now') WHERE id={}",id);
+    let sql=Record::get_query_update(id);
     let _ =conn.execute(&sql,&[&name,&amount,&amount_io,&comment,&record_date,&category_id]);
 
     // select updated category
@@ -177,8 +179,8 @@ async fn delete_record(path: web::Path<(u32,)>) -> impl Responder {
 
     let id=path.into_inner().0;
 
-    // update
-    let sql=format!("UPDATE records SET is_deleted=1, updated_at=datetime('now') WHERE id={}",id);
+    // delete
+    let sql:String=Record::get_query_delete(id);
     let _ =conn.execute(&sql,[]);
 
     HttpResponse::Ok().json(json!({"success": true,"deleted": id}   ))

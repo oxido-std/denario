@@ -2,6 +2,8 @@ use actix_web::{get,post,delete, HttpResponse, Responder, web};
 use serde_json::json;
 use rusqlite::{ Connection};
 
+use crate::models::dolar_model::SQLDolar;
+
 use super::super::db_conn::get_db_connection;
 use super::super::models::dolar_model::{Dolar,DtoDolar};
 
@@ -52,7 +54,7 @@ pub async fn create_dolar(data: web::Json<DtoDolar>) -> impl Responder {
     let amount=data.amount.to_string();
     let source=data.source.to_string();
     
-    let sql="INSERT INTO dolars (name,amount,source,created_at,is_deleted) VALUES (?1,?2,?3,datetime('now'),false)";
+    let sql=Dolar::get_query_insert();
     let _ =conn.execute(&sql,&[&name,&amount,&source]);
     
     // get last inserted category
@@ -69,7 +71,7 @@ pub async fn delete_dolar(path: web::Path<(u32,)>) -> impl Responder {
     let id=path.into_inner().0;
 
     // update
-    let sql=format!("UPDATE dolars SET is_deleted=1, updated_at=datetime('now') WHERE id={}",id);
+    let sql=Dolar::get_query_delete(id);
     let _ =conn.execute(&sql,[]);
 
     HttpResponse::Ok().json(json!({"success": true,"deleted": id}   ))
