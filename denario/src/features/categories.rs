@@ -1,24 +1,11 @@
 use actix_web::{get,post,patch,delete, HttpResponse, Responder, web};
-use serde::Deserialize;
 use serde_json::json;
 use rusqlite::{ Connection};
 
 use super::super::db_conn::get_db_connection;
+use super::super::models::category_model::{Category,DtoCategory};
 
 
-#[derive(Debug,serde::Serialize)]
-struct Category{
-    id:i64,
-    name:String,
-    created_at:String,
-    updated_at:String,
-    is_deleted:bool,
-}
-
-#[derive(Debug,Deserialize)]
-struct DtoCategory{
-    name:String, 
-}
 
 #[get("/categories")]
 async fn find_all_categories() -> impl Responder {

@@ -1,46 +1,14 @@
 use actix_web::{get,post,patch,delete, HttpResponse, Responder, web};
-use serde::Deserialize;
 use serde_json::json;
 use rusqlite::{ Connection};
 
 use super::super::db_conn::get_db_connection;
+use super::super::models::credit_model::{Credit,DtoCredit,FiltersCredit};
 
 
-#[derive(Debug,serde::Serialize)]
-struct Credit{
-    id:i64,
-    name:String,
-    comment:String,
-    amount:f32,
-    payments:u16,
-    started_at:String,
-    finish_at:String,
-    category_id:i64,
-    created_at:String,
-    updated_at:String,
-    is_deleted:bool,
-}
-
-#[derive(Debug,Deserialize)]
-struct DtoCredit{
-    name:String,
-    comment:String,
-    amount:f32,
-    payments:u16,
-    started_at:String,
-    category_id:i64,
-}
-
-#[derive(Debug,Deserialize)]
-struct Filters{
-    limit:u16,
-    skip:u16,
-    orderby_column:String,
-    orderby:String,
-}
 
 #[get("/credits/find_filtered")]
-async fn find_all_credits_filtered(filters: web::Query<Filters>) -> impl Responder {
+async fn find_all_credits_filtered(filters: web::Query<FiltersCredit>) -> impl Responder {
     
     let filters=&filters.into_inner();
     println!("{:?}",filters);

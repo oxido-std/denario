@@ -7,6 +7,8 @@ use std::env;
 mod seeds;
 mod features;
 mod db_conn;
+mod models;
+
 
 
 #[get("/api/healthchecker")]

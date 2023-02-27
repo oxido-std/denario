@@ -1,53 +1,12 @@
 use actix_web::{get,post,patch,delete, HttpResponse, Responder, web};
-use serde::Deserialize;
 use serde_json::json;
 use rusqlite::{ Connection};
 
 use super::super::db_conn::get_db_connection;
-
-
-#[derive(Debug,serde::Serialize)]
-struct Record{
-    id:i64,
-    name:String,
-    amount:f32,
-    amount_io:String, // in / out
-    comment:String,
-    record_date:String,
-    category_id:i64,
-    created_at:String,
-    updated_at:String,
-    is_deleted:bool,
-}
-
-#[derive(Debug,serde::Serialize)]
-struct Record2Categories{
-    amount_io:String, // in / out
-    category_id:i64,
-    category_name:String,
-    total:f32,
-}
-
-#[derive(Debug,Deserialize)]
-struct DtoRecord{
-    name:String,
-    amount:f32,
-    amount_io:String,
-    comment:String,
-    record_date:String,
-    category_id:i64,
-}
-
-#[derive(Debug,Deserialize)]
-struct Filters{
-    limit:u16,
-    skip:u16,
-    orderby_column:String,
-    orderby:String,
-}
+use super::super::models::record_model::{Record,DtoRecord,Record2Categories,FiltersRecord};
 
 #[get("/records/find_filtered")]
-async fn find_all_records_filtered(filters: web::Query<Filters>) -> impl Responder {
+async fn find_all_records_filtered(filters: web::Query<FiltersRecord>) -> impl Responder {
     
     let filters=&filters.into_inner();
 

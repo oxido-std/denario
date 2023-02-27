@@ -8,8 +8,6 @@
 /denario/denarios_sqlite.db
 /denario/*.exe
 
-#py-parse
-/pyparse/
 # fronted
 
 # Logs

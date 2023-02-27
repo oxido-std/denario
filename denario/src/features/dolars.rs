@@ -1,27 +1,12 @@
 use actix_web::{get,post,delete, HttpResponse, Responder, web};
-use serde::Deserialize;
 use serde_json::json;
 use rusqlite::{ Connection};
 
 use super::super::db_conn::get_db_connection;
+use super::super::models::dolar_model::{Dolar,DtoDolar};
 
 
-#[derive(Debug,serde::Serialize)]
-struct Dolar{
-    id:i64,
-    name:String,
-    amount:f32,
-    source:String,
-    created_at:String,
-    is_deleted:bool,
-}
 
-#[derive(Debug,Deserialize)]
-pub struct DtoDolar{
-    name:String,
-    amount:f32,
-    source:String,
-}
 
 #[get("/dolars")]
 pub async fn find_all_dolars() -> impl Responder {
