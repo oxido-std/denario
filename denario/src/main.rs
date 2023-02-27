@@ -30,7 +30,9 @@ async fn main() -> std::io::Result<()> {
     }
     env_logger::init();
 
-    println!("🚀 Server started successfully at http://{}:{}",server_host,server_port);
+    println!("🦀-----------------------------------------------------------🦀");
+    println!("   🚀 Server started successfully at http://{}:{}",server_host,server_port);
+    println!("🦀-----------------------------------------------------------🦀");
 
     HttpServer::new(move || {
         App::new()
@@ -41,12 +43,6 @@ async fn main() -> std::io::Result<()> {
             .service(features::categories::create_category)
             .service(features::categories::update_category)
             .service(features::categories::delete_category)
-            .service(features::records::find_all_records_filtered)
-            .service(features::records::find_all_records)
-            .service(features::records::find_one_record)
-            .service(features::records::create_record)
-            .service(features::records::update_record)
-            .service(features::records::delete_record)
             .service(features::credits::find_all_credits_filtered)
             .service(features::credits::find_all_credits)
             .service(features::credits::find_one_credit)
@@ -58,6 +54,17 @@ async fn main() -> std::io::Result<()> {
             .service(features::dolars::get_last_dolar)
             .service(features::dolars::create_dolar)
             .service(features::dolars::delete_dolar)
+            .service(features::records::find_all_records_filtered)
+            .service(features::records::find_all_records)
+            .service(features::records::find_all_records_by_date_full)
+            .service(features::records::find_all_records_by_date)
+            .service(features::records::find_all_records_by_category_and_date)
+            .service(features::records::find_all_records_amounts_io_by_date)
+            .service(features::records::find_one_record)
+            .service(features::records::find_one_record_by_category)
+            .service(features::records::create_record)
+            .service(features::records::update_record)
+            .service(features::records::delete_record)
             .wrap(Logger::default())
     })
     .bind((server_host, server_port))?

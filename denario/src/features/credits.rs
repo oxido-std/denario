@@ -93,6 +93,9 @@ async fn create_credit(data: web::Json<DtoCredit>) -> impl Responder {
 
     let sql=format!("INSERT INTO credits (name,comment,amount,payments,started_at,finish_at,category_id,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,?5,date(?5,'+{} month'),?6,datetime('now'),datetime('now'),false)",payments);
     let _ =conn.execute(&sql,&[&name,&comment,&amount,&payments,&started_at,&category_id]);
+
+    // aquí debería hacer un insert en la records por cada cuota del crédito.
+    todo!();
     
     // get last inserted category
     let last_id= conn.last_insert_rowid();
@@ -135,6 +138,9 @@ async fn delete_credit(path: web::Path<(u32,)>) -> impl Responder {
     let sql=format!("UPDATE credits SET is_deleted=1, updated_at=datetime('now') WHERE id={}",id);
     let _ =conn.execute(&sql,[]);
 
+    // debería borrar cada uno de los regitros asociados a un crédito.
+    todo!();
+
     HttpResponse::Ok().json(json!({"success": true,"deleted": id}   ))
 }
 
@@ -168,3 +174,16 @@ fn execute_query_and_parse(conn: &Connection, sql:&str) -> Vec<Credit>{
     }
     return result_vec;
 }
+
+// fn create_record_2_credit(&conn){
+
+//     let name=data.name.to_string();
+//     let amount=data.amount.to_string();
+//     let amount_io=data.amount_io.to_string();
+//     let comment=data.comment.to_string();
+//     let record_date=data.record_date.to_string();
+//     let category_id=data.category_id.to_string();
+
+//     let sql="INSERT INTO records (name,amount,amount_io,comment,record_date,category_id,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,?5,?6,datetime('now'),datetime('now'),false)";
+//     let _ =conn.execute(&sql,&[&name,&amount,&amount_io,&comment,&record_date,&category_id]);
+// }

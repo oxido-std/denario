@@ -1,9 +1,12 @@
-# backend
+/build
+/build/*
 
+# backend
 /denario/target
 /denario/.env
 /denario/cargo.lock
 /denario/denarios_sqlite.db
+/denario/*.exe
 
 # fronted
 

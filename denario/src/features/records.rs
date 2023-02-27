@@ -20,6 +20,14 @@ struct Record{
     is_deleted:bool,
 }
 
+#[derive(Debug,serde::Serialize)]
+struct Record2Categories{
+    amount_io:String, // in / out
+    category_id:i64,
+    category_name:String,
+    total:f32,
+}
+
 #[derive(Debug,Deserialize)]
 struct DtoRecord{
     name:String,
@@ -68,6 +76,90 @@ async fn find_one_record(path: web::Path<(u32,)>) -> impl Responder {
     
     let id=path.into_inner().0;
     let sql=format!("SELECT * FROM records WHERE id= {id} AND is_deleted=0");
+    let result_vec=execute_query_and_parse(&conn, &sql);
+
+    HttpResponse::Ok().json(json!({"success": true,"records": result_vec}))
+}
+
+#[get("/records/by_category/{id}")]
+async fn find_one_record_by_category(path: web::Path<(u64,)>) -> impl Responder {
+    let conn=get_db_connection();
+    
+    let id=path.into_inner().0;
+    let sql=format!("SELECT * FROM records WHERE category_id={id} AND is_deleted=0");
+    let result_vec=execute_query_and_parse(&conn, &sql);
+
+    HttpResponse::Ok().json(json!({"success": true,"records": result_vec}))
+}
+
+#[get("/records/by_date/{month}/{year}")]
+async fn find_all_records_by_date(path: web::Path<(u8,u16)>) -> impl Responder {
+    let conn=get_db_connection();
+    
+    let path_params=path.into_inner();
+    let month=path_params.0;
+    let year=path_params.1;
+    
+    let month_str:String;
+    if month < 10{
+        month_str=format!("0{month}");
+    }else{
+        month_str=format!("{month}");
+    }
+
+    let sql=format!("SELECT * FROM records WHERE record_date LIKE \'{year}-{month_str}-%\' AND is_deleted=0");
+    let result_vec=execute_query_and_parse(&conn, &sql);
+
+    HttpResponse::Ok().json(json!({"success": true,"records": result_vec}))
+}
+
+#[get("/records/by_date/{day}/{month}/{year}")]
+async fn find_all_records_by_date_full(path: web::Path<(u8,u8,u16)>) -> impl Responder {
+    let conn=get_db_connection();
+    
+    let path_params=path.into_inner();
+    let day=path_params.0;
+    let month=path_params.1;
+    let year=path_params.2;
+    
+    let day_str:String;
+    if day < 10{
+        day_str=format!("0{day}");
+    }else{
+        day_str=format!("{day}");
+    }
+
+    let month_str:String;
+    if month < 10{
+        month_str=format!("0{month}");
+    }else{
+        month_str=format!("{month}");
+    }
+
+    let sql=format!("SELECT * FROM records WHERE record_date LIKE \'{year}-{month_str}-{day_str}\' AND is_deleted=0");
+    println!("{:?}",sql);
+    let result_vec=execute_query_and_parse(&conn, &sql);
+
+    HttpResponse::Ok().json(json!({"success": true,"records": result_vec}))
+}
+
+#[get("/records/by_category/{id}/date/{month}/{year}")]
+async fn find_all_records_by_category_and_date(path: web::Path<(u64,u8,u16)>) -> impl Responder {
+    let conn=get_db_connection();
+    
+    let path_params=path.into_inner();
+    let category_id=path_params.0;
+    let month=path_params.1;
+    let year=path_params.2;
+    
+    let month_str:String;
+    if month < 10{
+        month_str=format!("0{month}");
+    }else{
+        month_str=format!("{month}");
+    }
+
+    let sql=format!("SELECT * FROM records WHERE record_date LIKE \'{year}-{month_str}-%\' AND category_id={category_id} AND is_deleted=0");
     let result_vec=execute_query_and_parse(&conn, &sql);
 
     HttpResponse::Ok().json(json!({"success": true,"records": result_vec}))
@@ -133,6 +225,34 @@ async fn delete_record(path: web::Path<(u32,)>) -> impl Responder {
     HttpResponse::Ok().json(json!({"success": true,"deleted": id}   ))
 }
 
+// FUNCIONES ESPECIALES
+// trae la suma de todos los in y todos out por fecha.
+// trae la suma de todos los in y todos los out discriminado por categoría
+// para esto hago un patron build
+#[get("/records/amounts_by_date/{month}/{year}")]
+async fn find_all_records_amounts_io_by_date(path: web::Path<(u8,u16)>) -> impl Responder {
+    let conn=get_db_connection();
+    
+    let path_params=path.into_inner();
+    let month=path_params.0;
+    let year=path_params.1;
+    
+    let month_str:String;
+    if month < 10{
+        month_str=format!("0{month}");
+    }else{
+        month_str=format!("{month}");
+    }
+
+    let sql=format!("SELECT R.amount_io,R.category_id,C.name AS category_name ,SUM(R.amount) AS total FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE R.record_date LIKE '{year}-{month_str}-%' AND R.is_deleted=0 GROUP BY R.category_id");
+    let result_vec=execute_query_and_parse_record2categories(&conn, &sql);
+
+    HttpResponse::Ok().json(json!({"success": true,"records": result_vec}))
+}
+
+
+
+
 ///
 /// this function make a preperare statemen and execute a query.
 /// Then the results is parsed into a vector to serialize as json
@@ -162,3 +282,24 @@ fn execute_query_and_parse(conn: &Connection, sql:&str) -> Vec<Record>{
     }
     return result_vec;
 }
+
+fn execute_query_and_parse_record2categories(conn: &Connection, sql:&str) -> Vec<Record2Categories>{
+    let mut stmt = conn.prepare(&sql).unwrap();
+    let elements_iter = stmt.query_map([], |row| {
+
+        Ok(Record2Categories {
+            amount_io:row.get(0)?,
+            category_id:row.get(1)?,
+            category_name:row.get(2)?,
+            total:row.get(3)?
+        })
+    }).unwrap();
+
+    let mut result_vec=vec![];
+
+    for element in elements_iter {
+        result_vec.push(element.unwrap());
+    }
+    return result_vec;
+}
+

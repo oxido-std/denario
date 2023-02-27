@@ -66,7 +66,7 @@ pub fn populate_categories(){
 
   let conn=get_db_connection();
 
-  let categories_arr=["Arreglos","Bazar","Comida","Crédito","Educación","Extra","Juegos","Ropa","Serv. de Agua","Serv. de Electricidad","Serv. de Gas","Serv. de Internet","Servicio","SUBE","Sueldo","Suscripción","Teléfono","Transporte"];
+  let categories_arr=["Arreglos De La Casa","Bazar","Comida","Crédito","Educación","Extra","Juegos","Ropa","Serv. De Agua","Serv. De Electricidad","Serv. De Gas","Serv. De Internet","Servicio","Sueldo","Suscripción","Teléfono","Transporte","Libros","Salud Mental","Salud","Monotributo","Impuestos","_random"];
 
   for cat in categories_arr{
     conn.execute("INSERT INTO categories (name,created_at,updated_at,is_deleted) VALUES (?1,datetime('now'),datetime('now'),false)",

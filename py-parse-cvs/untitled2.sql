@@ -1,0 +1,2 @@
+INSERT INTO "records" ("id", "name", "amount", "amount_io", "comment", "record_date", "category_id", "created_at", "updated_at", "is_deleted") VALUES
+(1, 'me', '10.0', 'in', 'm', '2023-01-01', 1, '2023-01-02 00:00:00', '2023-01-02 00:00:00', 'false');

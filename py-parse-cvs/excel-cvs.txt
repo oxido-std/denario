@@ -1,0 +1,272 @@
+"14,000.00",,Abu,,,Septiembre,2022
+"10,000.00",,Venta de mesa y sillas,,,Septiembre,2022
+"63,000.00",,Salario,,,Septiembre,2022
+"87,000.00",,SUBTOTAL,,,Septiembre,2022
+,"8,000.00",Deuda a mamá: Restan $4000,,,Septiembre,2022
+,,Zapatillas de trabajo,,,Septiembre,2022
+,"3,470.00",Mercado crédito,,,Septiembre,2022
+,"20,000.00",Nini,,Alimento/bazar,Septiembre,2022
+,200.00,Luz,,Servicio,Septiembre,2022
+,"6,104.00",Gas,,Servicio,Septiembre,2022
+,"2,000.00",Internet,,Servicio,Septiembre,2022
+,"1,000.00",Monotributo,,,Septiembre,2022
+,"6,000.00",Psicologa,,Salud,Septiembre,2022
+,300.00,Teléfono,,Servicio,Septiembre,2022
+,"1,000.00",Auriculares,,,Septiembre,2022
+,500.00,Sube,,Transporte,Septiembre,2022
+,"2,800.00",Comer en el trabajo,,Alimento,Septiembre,2022
+,"16,776.00","Compré varias cosas: Juegos, fui al super varias veces y otros gastos",,,Septiembre,2022
+"68,150.00",,SUBTOTAL,,,Septiembre,2022
+"18,850.00",,Cierre del mes,,,Septiembre,2022
+"45,000.00",,Salario (Restan 18k),,,Octubre,2022
+"18,000.00",,Salario que restaba,,,Octubre,2022
+"17,000.00",,Abu,,,Octubre,2022
+"18,850.00",,Mes anterior,,,Octubre,2022
+"27,500.00",,Cambio 100 USD,,,Octubre,2022
+"126,350.00",,SUBTOTAL,,,Octubre,2022
+,"4,000.00",Deuda a mamá - COMPLETA -,,Crédito,Octubre,2022
+,"3,470.00",Mercado crédito,,Crédito,Octubre,2022
+,212.00,Luz,,Servicio,Octubre,2022
+,"3,000.00",Gas cuota 1,,Servicio,Octubre,2022
+,"2,000.00",Internet,,Servicio,Octubre,2022
+,"3,000.00",Psicologa,,Salud,Octubre,2022
+,500.00,Sube,,Servicio,Octubre,2022
+,300.00,Teléfono,,Servicio,Octubre,2022
+,"3,000.00",Comer en el trabajo,,Casa,Octubre,2022
+,"9,500.00",Nini,,Casa,Octubre,2022
+,"32,000.00",Placa de video (el resto lo pago en 18 cuotas),,,Octubre,2022
+,"13,500.00",Fuente Gigabyte 600w,,,Octubre,2022
+,500.00,País de Boludos,,,Octubre,2022
+,"3,194.00",clavateuna.com,,,Octubre,2022
+,"1,200.00",Mercadito,,,Octubre,2022
+,"6,800.00",RedDeadRedemption 2,,,Octubre,2022
+,"1,200.00",tabaco + filtros,,,Octubre,2022
+,"8,500.00",camiseta de estudiantes de papá (la pagamos con wan y el regalo de mamá),,,Octubre,2022
+,"4,300.00",Verdulería 1,,Casa,Octubre,2022
+,"4,000.00",Verdulería 2,,Casa,Octubre,2022
+,"1,200.00",Domingo con papá,,,Octubre,2022
+,"7,200.00",Buzo hoodie somos perrah,,,Octubre,2022
+,674.00,Adobe Lightroom + photoshop,,,Octubre,2022
+,"2,800.00",Regalo jueguitos mamá,,,Octubre,2022
+,"2,500.00",Almuerzo del día de la madre,,,Octubre,2022
+,"1,100.00",Choris con Pin,,,Octubre,2022
+,"2,000.00",Steam - Tropico 6,,Servicio,Octubre,2022
+,"2,800.00",en clazones fulvio,,,Octubre,2022
+,"3,900.00",gastos varios,,,Octubre,2022
+,,,,,Octubre,2022
+,,,,,Octubre,2022
+"128,350.00",,SUBTOTAL,,,Octubre,2022
+#REF!,,SUBTOTAL de gastos fijos (nini este mes es poco),,,Octubre,2022
+"63,994.00",,Gastos excepcionales,,,Octubre,2022
+,,,,,Octubre,2022
+"-2,000.00",,Cierre del mes: (Digital: $15.000 / Efectivo: $20.500) 6Oct,,falta pagar,Octubre,2022
+"30,000.00",,Redtrail - Mercadopago,,,Noviembre,2022
+"30,000.00",,Redtrail - Mercadopago,,,Noviembre,2022
+"24,000.00",,Redtrail,,,Noviembre,2022
+"30,500.00",,Cambio dólares,,,Noviembre,2022
+"114,500.00",,SUBTOTAL,,,Noviembre,2022
+,"1,870.00",Mercado crédito,,Crédito,Noviembre,2022
+,"5,000.00",Placa de video (el resto lo pago en 18 cuotas) - cuota 1,,Crédito,Noviembre,2022
+,210.00,Luz,,Servicio,Noviembre,2022
+,674.00,Adobe Lightroom + photoshop,,Servicio,Noviembre,2022
+,887.00,Monotributo,,Servicio,Noviembre,2022
+,"1,000.00",Teléfono,,Servicio,Noviembre,2022
+,"2,000.00",Internet,,Servicio,Noviembre,2022
+,500.00,País de Boludos,,Servicio,Noviembre,2022
+,"4,000.00",psiquiatra,,Excepcional,Noviembre,2022
+,"6,210.00",de renovación de contramarea.com ($2.000 de juan),,Excepcional,Noviembre,2022
+,"4,000.00",Curso Udemy,,Excepcional,Noviembre,2022
+,"9,500.00",Compra de Herramientas para coser cuero,,Excepcional,Noviembre,2022
+,"3,400.00",Devolverle a mamá,,Excepcional,Noviembre,2022
+,"3,300.00",Curso Udemy Laravel 9 - lo cambiaré,,Excepcional,Noviembre,2022
+,"6,010.00",Ventana,,Excepcional,Noviembre,2022
+,"2,544.00",Juegos,,Excepcional,Noviembre,2022
+,"5,000.00",Anteojos piolas (Que resultaron re chotos),,Excepcional,Noviembre,2022
+,"1,260.00",comer en el laburo,,Comida,Noviembre,2022
+,"13,000.00",Nini,,Comida,Noviembre,2022
+,"1,800.00",Gas,,Servicio,Noviembre,2022
+,"3,460.00",Mercadito,,Comida,Noviembre,2022
+,400.00,Panadería Papá,,Comida,Noviembre,2022
+,"3,900.00",Libro Saborido,,Excepcional,Noviembre,2022
+,500.00,Sube,,Excepcional,Noviembre,2022
+,"4,000.00",gastos varios,,,Noviembre,2022
+,"15,000.00",Cuota - Seguridad,1/3,Crédito,Noviembre,2022
+,,,,,Noviembre,2022
+"99,425.00",,SUBTOTAL,,,Noviembre,2022
+"9,700.00",,Cuotas,,,Noviembre,2022
+"47,864.00",,Excepcionales,,,Noviembre,2022
+"21,331.00",,Servicios / Fijos,,,Noviembre,2022
+,,,,,Noviembre,2022
+"15,075.00",,Cierre del mes,,,Noviembre,2022
+"15,075.00",,Resto del mes anterior,,,Diciembre,2022
+"30,000.00",,Redtrail,,,Diciembre,2022
+"20,000.00",,Venta de flash,,,Diciembre,2022
+"33,000.00",,Redtrail,,,Diciembre,2022
+"98,075.00",,SUBTOTAL,,,Diciembre,2022
+,"1,870.00",Mercado crédito,5/6,Crédito,Diciembre,2022
+,"4,800.00",Placa de video (el resto lo pago en 18 cuotas),2/18,Crédito,Diciembre,2022
+,"1,400.00",Marcador De Puntadas,1/6,Crédito,Diciembre,2022
+,"6,230.00",Cuota Zapatos,1/6,Crédito,Diciembre,2022
+,"2,830.00",Curso Adroid,,Excepcional,Diciembre,2022
+,800.00,Juegos,,Excepcional,Diciembre,2022
+,"8,000.00",Remeras,,Excepcional,Diciembre,2022
+,"2,000.00",Internet,,Servicio,Diciembre,2022
+,"5,120.00",teclado,,Excepcional,Diciembre,2022
+,780.00,Almuerzo en el trabajo,,Comida,Diciembre,2022
+,500.00,Pais de boludos,,Excepcional,Diciembre,2022
+,710.00,Mercadito,,Excepcional,Diciembre,2022
+,"1,875.00",Juego,,Excepcional,Diciembre,2022
+,"6,780.00",Libro Hackers,,Excepcional,Diciembre,2022
+,"13,700.00",surfshark.com / Subscripcion 2 años,,Excepcional,Diciembre,2022
+,"5,540.00",Verdulería,,Comida,Diciembre,2022
+,"2,540.00",La Pipi,,Comida,Diciembre,2022
+,"1,000.00",Milanesas,,Comida,Diciembre,2022
+,530.00,Juego ,,Excepcional,Diciembre,2022
+,680.00,Adobe,,Servicio,Diciembre,2022
+,"1,000.00",Gas,,Servicio,Diciembre,2022
+,200.00,Luz,,Servicio,Diciembre,2022
+,950.00,auriculares,,Excepcional,Diciembre,2022
+,570.00,verdulería,,Comida,Diciembre,2022
+,"10,680.00",Libro Whitehacker (me siento estafado),,Excepcional,Diciembre,2022
+,"7,000.00",Placa de red wifi + cable celu,,Excepcional,Diciembre,2022
+,"3,000.00",Age of empires IV,,,Diciembre,2022
+,500.00,sube,,,Diciembre,2022
+,"1,100.00",Cena de navidad,,,Diciembre,2022
+,"4,000.00",en no se que,,,Diciembre,2022
+,750.00,Parte de un libro,,Excepcional,Diciembre,2022
+,,,,,Diciembre,2022
+"97,435.00",,SUBTOTAL,,,Diciembre,2022
+"14,300.00",,Cuotas,,,Diciembre,2022
+"16,060.00",,A mamá,,,Diciembre,2022
+"55,235.00",,Excepcionales,,,Diciembre,2022
+640.00,,Cierre del mes,,,Diciembre,2022
+640.00,,Resto del mes anterior,,,Enero,2023
+"30,000.00",,Redtrail,,,Enero,2023
+"33,000.00",,Redtrail,,,Enero,2023
+"6,000.00",,Regalo de navidad de la tia y la abuela,,,Enero,2023
+"33,500.00",,Cambio 100,,,Enero,2023
+"103,140.00",,SUBTOTAL,,,Enero,2023
+,"1,870.00",Mercado crédito,6/6,Crédito,Enero,2023
+,"4,800.00",Placa de video (el resto lo pago en 18 cuotas),3/18,Crédito,Enero,2023
+,"1,400.00",Marcador De Puntadas,2/6,Crédito,Enero,2023
+,"6,230.00",Cuota Zapatos,2/6,Crédito,Enero,2023
+,"7,500.00",Libro,,Excepcional,Enero,2023
+,"4,800.00",Libro / 2500 a mamá,,Excepcional,Enero,2023
+,"30,300.00",Cuota - Seguridad (pagué todo),3/3,Crédito,Enero,2023
+,"2,320.00",Comida,,Comida,Enero,2023
+,700.00,Mercadito,,Comida,Enero,2023
+,600.00,Mercardito,,Comida,Enero,2023
+,300.00,Verdulería,,Comida,Enero,2023
+,330.00,Mercadito,,Comida,Enero,2023
+,"2,750.00",Internet,,Servicio,Enero,2023
+,600.00,Verdulería,,Comida,Enero,2023
+,670.00,Adobe,,Servicio,Enero,2023
+,600.00,Mercadito,,Comida,Enero,2023
+,538.00,Gas,,Servicio,Enero,2023
+,"1,180.00",Mercadito,,Comida,Enero,2023
+,"5,000.00",Marcador De Puntadas (resto de cuotas del),6/6,Crédito,Enero,2023
+,"2,700.00",Internet de mamá,,Servicio,Enero,2023
+,"4,200.00",Verdulería,,Comida,Enero,2023
+,"1,640.00",Mercadito,,,Enero,2023
+,600.00,Juego,,Excepcional,Enero,2023
+,"1,530.00",Monotributo,,Servicio,Enero,2023
+,350.00,Verduleria trabajo,,Comida,Enero,2023
+,"3,450.00",Curso Docker,,Excepcional,Enero,2023
+,550.00,Comida en el trabajo,,,Enero,2023
+,720.00,Mercadito,,,Enero,2023
+,"3,800.00",Curso de Go (pagarle a mamá),,Excepcional,Enero,2023
+,"2,000.00",Pollo,,Comida,Enero,2023
+,"3,500.00",key win11,,Excepcional,Enero,2023
+,"1,600.00",Mercadito,,,Enero,2023
+,600.00,Mercadito,,,Enero,2023
+"99,728.00",,SUBTOTAL,,,Enero,2023
+"14,300.00",,Cuotas,,,Enero,2023
+"23,650.00",,Excepcionales,,,Enero,2023
+"3,412.00",,Cierre del mes,,,Enero,2023
+"3,412.00",,Resto del mes anterior,,,Febrero,2023
+"40,000.00",,Redtrail,,,Febrero,2023
+"15,000.00",,Redtrail,,,Febrero,2023
+"35,000.00",,Cambio 100 U$S,,,Febrero,2023
+"30,000.00",,Adelanto del sueldo,,,,
+"18,000.00",,abuela,,,,
+"141,412.00",,SUBTOTAL,,,Febrero,2023
+,"4,800.00",Placa de video (el resto lo pago en 18 cuotas),4/18,Crédito,Febrero,2023
+,"6,230.00",Cuota Zapatos,3/6,Crédito,Febrero,2023
+,"2,500.00",Internet,,Servicio,Febrero,2023
+,"2,500.00",Internet mamá,,Servicio,Febrero,2023
+,"15,000.00",Disyuntor + zapatilla + soporte tele,,Excepcional,Febrero,2023
+,"2,200.00",Verdulería,,Comida,Febrero,2023
+,860.00,Mouse,,Excepcional,Febrero,2023
+,200.00,Luz,,Servicio,Febrero,2023
+,570.00,Mercadito,,Comida,Febrero,2023
+,300.00,Recarga celu,,Servicio,Febrero,2023
+,420.00,Panadería papá,,comida,Febrero,2023
+,"14,500.00",Arreglo de electricidad de la casa(Tomé de los 20 de los ahorros) voy a reponerlo y dejarlos en 10,,Excepcional,Febrero,2023
+,420.00,facturas,,,Febrero,2023
+,"4,000.00",Curso Rust,,,Febrero,2023
+,"2,240.00",Cable 6mm verde amarillo,,,Febrero,2023
+,200.00,Jueguito mamá,,Excepcional,Febrero,2023
+,370.00,Almuerzo en el trabajo,,,Febrero,2023
+,500.00,Sube,,,Febrero,2023
+,750.00,220podcast suscripcion (ya la cancelé),,,Febrero,2023
+,"2,081.00",Pago de deuda incorrecta a los forros hijos de puta de movistar,,,Febrero,
+,"2,800.00",Cena con mamá y wan,,,Febrero,
+,"3,700.00",Juego Comandos + Pretorians,,,Febrero,
+,"1,005.00",Mercadito,,,Febrero,
+,600.00,Teléfono,,,Febrero,
+,"1,530.00",Monotributo,,,Febrero,
+,415.00,Mercadito,,,Febrero,
+,674.00,Adobe Photography (mensual),,,Febrero,
+,"1,700.00",Avast x 3 años,,,Febrero,
+,"1,530.00",Afip,,,Febrero,
+,400.00,Avas + 2 años,,,Febrero,
+,"5,220.00",Micrfono corbatero,,,Febrero,
+,"12,000.00",Libro de rust <3,,,Febrero,
+,"2,050.00",Verdulería,,,Febrero,
+,"9,200.00",Módulo Security Intermedio,1/6,,Febrero,
+,"1,020.00",Mercadito,,,Febrero,
+,,,,,Febrero,
+,,,,,,
+,,,,,,
+,,,,,,
+"104,485.00",,SUBTOTAL,,,Febrero,2023
+"20,230.00",,Cuotas,,,Febrero,2023
+"59,801.00",,Excepcionales,,,Febrero,2023
+0.00,,Ahorro,,,Febrero,2023
+"36,927.00",,Cierre del mes,,,Febrero,2023
+"36,927.00",,Resto del mes anterior,,,Marzo,2023
+"50,000.00",,Redtrail,,,Marzo,2023
+,,,,,Marzo,2023
+,,,,,Marzo,2023
+"86,927.00",,SUBTOTAL,,,Marzo,2023
+,"4,800.00",Placa de video (el resto lo pago en 18 cuotas),4/18,Crédito,Marzo,2023
+,"6,230.00",Cuota Zapatos,3/6,Crédito,Marzo,2023
+,"9,200.00",Módulo Security Intermedio,2/6,crédito,Marzo,2023
+,,,,,Marzo,2023
+,,,,,Marzo,2023
+,,,,,Marzo,2023
+,,,,,Marzo,2023
+,,,,,Marzo,2023
+,,,,,Marzo,2023
+,,,,,Marzo,2023
+,,,,,Marzo,2023
+,,,,,Marzo,2023
+,,,,,Marzo,2023
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+"20,230.00",,SUBTOTAL,,,,
+"20,230.00",,Cuotas,,,,
+#N/A,,Excepcionales,,,,
+0.00,,Ahorro,,,,
+"66,697.00",,Cierre del mes,,,,
