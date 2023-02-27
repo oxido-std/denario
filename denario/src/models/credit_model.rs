@@ -27,6 +27,10 @@ pub trait SQLCredit {
     fn get_query_delete(id:u32) -> String{
         format!("UPDATE credits SET is_deleted=1, updated_at=datetime('now') WHERE id={}",id)
     }
+
+    fn get_last_credit_id() -> String{
+        format!("SELECT *,MAX(id) FROM credits LIMIT 1")
+    }
 }
 
 impl SQLCredit for Credit{

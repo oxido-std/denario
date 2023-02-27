@@ -17,6 +17,14 @@ pub trait SQLRecord {
     fn get_query_insert() -> String{
         format!("INSERT INTO records (name,amount,amount_io,comment,record_date,category_id,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,?5,?6,datetime('now'),datetime('now'),false)")
     }
+    
+    /// Esta función cambia la fecha del registro para poder utilizarla con las funcions SQL de
+    /// 
+    /// date([FECHA],'+[CANT] [DAY /MONTH / YEARS])
+
+    fn get_query_insert_future(time_plus:u8) -> String{
+        format!("INSERT INTO records (name,amount,amount_io,comment,record_date,category_id,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,date(?5,'+{} month'),?6,datetime('now'),datetime('now'),false)",time_plus)
+    }
 
     fn get_query_update(id:u32) -> String{
         format!("UPDATE records SET name=?1,amount=?2,amount_io=?3,comment=?4,record_date=?5,category_id=?6,updated_at=datetime('now') WHERE id={}",id)

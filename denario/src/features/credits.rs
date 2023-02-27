@@ -1,11 +1,16 @@
+use std::fmt::format;
+
 use actix_web::{get,post,patch,delete, HttpResponse, Responder, web};
 use serde_json::json;
+use chrono::{self, NaiveDate, Datelike};
 use rusqlite::{ Connection};
 
 use crate::models::credit_model::SQLCredit;
+use crate::models::record_model::SQLRecord;
 
 use super::super::db_conn::get_db_connection;
 use super::super::models::credit_model::{Credit,DtoCredit,FiltersCredit};
+use super::super::models::record_model::{Record,DtoRecord};
 
 
 
@@ -56,21 +61,23 @@ async fn create_credit(data: web::Json<DtoCredit>) -> impl Responder {
     // insert
     let name=data.name.to_string();
     let comment=data.comment.to_string();
-    let amount=data.amount.to_string();
-    let payments=data.payments.to_string();
+    let amount=data.amount;
+    let payments=data.payments;
     let started_at=data.started_at.to_string();
-    let category_id=data.category_id.to_string();
+    let category_id=data.category_id;
 
-    let sql=Credit::get_query_insert(&payments);
-    let _ =conn.execute(&sql,&[&name,&comment,&amount,&payments,&started_at,&category_id]);
+    let sql=Credit::get_query_insert(&payments.to_string());
+    let _ =conn.execute(&sql,&[&name,&comment,&amount.to_string(),&payments.to_string(),&started_at,&category_id.to_string()]);
 
-    // aquí debería hacer un insert en la records por cada cuota del crédito.
-    todo!();
     
     // get last inserted category
-    let last_id= conn.last_insert_rowid();
-    let sql=format!("SELECT * FROM credits WHERE id={last_id}");
+    let sql=Credit::get_last_credit_id();
     let result_vec=execute_query_and_parse(&conn, &sql);
+    
+    let credit_id=result_vec[0].id;
+    // aquí debería hacer un insert en la records por cada cuota del crédito.
+    create_record_2_credit(&conn, &name, amount, payments,&started_at,category_id,credit_id);
+    
     HttpResponse::Ok().json(json!({"success": true,"credits": result_vec}))
 }
 
@@ -98,6 +105,7 @@ async fn update_credit(path: web::Path<(u32,)>, data: web::Json<DtoCredit>) -> i
 
     HttpResponse::Ok().json(json!({"success": true,"credits": result_vec}))
 }
+
 #[delete("/credits/{id}")]
 async fn delete_credit(path: web::Path<(u32,)>) -> impl Responder {
     let conn=get_db_connection();
@@ -145,15 +153,61 @@ fn execute_query_and_parse(conn: &Connection, sql:&str) -> Vec<Credit>{
     return result_vec;
 }
 
-// fn create_record_2_credit(&conn){
+fn create_record_2_credit(conn:&Connection,name:&str,amount:f32,payments:u16,first_payment_date:&String,category_id:i64,credit_id:i64){
+    
+    if first_payment_date.starts_with("-"){
+        // obtengo la fecha
+        let date=chrono::offset::Utc::now();
+        
+        let day=date.day();
+        let mut month=date.month();
 
-//     let name=data.name.to_string();
-//     let amount=data.amount.to_string();
-//     let amount_io=data.amount_io.to_string();
-//     let comment=data.comment.to_string();
-//     let record_date=data.record_date.to_string();
-//     let category_id=data.category_id.to_string();
+        let day_str:String;
+        if day < 10{
+            day_str=format!("0{day}");
+        }else{
+            day_str=format!("{day}");
+        }
 
-//     let sql="INSERT INTO records (name,amount,amount_io,comment,record_date,category_id,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,?5,?6,datetime('now'),datetime('now'),false)";
-//     let _ =conn.execute(&sql,&[&name,&amount,&amount_io,&comment,&record_date,&category_id]);
-// }
+        let month_str:String;
+        // si el día es mayor a 25 entoces pago la primer cuota el próximo mes, sino la pago este
+        if day > 25{
+            // siempre y cuando el mes no sea diciembre lo incremento
+            if month != 12{
+                month+=1;
+            }else{
+                month=1; // es enero
+            }
+        }
+        if month < 10{
+            month_str=format!("0{month}");
+        }else{
+            month_str=format!("{month}");
+        }
+
+        let year=date.year().to_string();
+        let first_payment_date=format!("{year}-{month_str}-{day_str}");
+    }
+
+    for i in 1..payments+1{
+        let current_payment=i.try_into().unwrap();
+        insert_record_2_credit(conn, name, amount, current_payment, payments,&first_payment_date,category_id,credit_id);
+    }
+}
+
+fn insert_record_2_credit(conn:&Connection,name:&str,amount:f32,current_payment:u8,payments:u16,fist_paymente_date:&String,category_id:i64,credit_id:i64){
+
+    let new_record=DtoRecord{
+        name:format!("_CREDITO_ {}",name),
+        amount:amount,
+        amount_io:String::from("out"),
+        comment:format!("_CID{credit_id}_ CUOTA: {current_payment}/{payments}"),
+        record_date:fist_paymente_date.to_string(),
+        category_id:category_id,
+    };
+
+    let sql=Record::get_query_insert_future(current_payment);
+    // println!("{:?}",sql);
+    // println!("{:?}",new_record);
+    let _ =conn.execute(&sql,&[&new_record.name,&amount.to_string(),&new_record.amount_io,&new_record.comment,&new_record.record_date,&new_record.category_id.to_string()]);
+}
