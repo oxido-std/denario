@@ -26,7 +26,8 @@ pub fn setup() {
         category_id INTEGER NOT NULL,
         created_at TEXT NOT NULL,
         updated_at TEXT NULL,
-        is_deleted BOOLEAN NOT NULL
+        is_deleted BOOLEAN NOT NULL,
+        is_mutable BOOLEAN NOT NULL
       )", []).unwrap();
 
       conn.execute("CREATE TABLE categories (
@@ -74,26 +75,3 @@ pub fn populate_categories(){
   }
 
 }
-
-// pub fn populate_records(){
-//   let conn=get_db_connection();
-
-//   let records_arr=["Arreglos","Bazar","Comida","Crédito","Educación","Extra","Juegos","Ropa","Serv. de Agua","Serv. de Electricidad","Serv. de Gas","Serv. de Internet","Servicio","SUBE","Sueldo","Suscripción","Teléfono","Transporte"];
-
-//   for elem in records_arr{
-//     conn.execute("INSERT INTO records (name,amount,amount_io,comment,record_date,category_id,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,?5,?6,datetime('now'),datetime('now'),false)",
-//     &[&elem.to_string()]).unwrap();
-//   }
-// }
-
-// pub fn populate_credits(){
-//   let conn=get_db_connection();
-
-//   let credits_arr=["Arreglos","Bazar","Comida","Crédito","Educación","Extra","Juegos","Ropa","Serv. de Agua","Serv. de Electricidad","Serv. de Gas","Serv. de Internet","Servicio","SUBE","Sueldo","Suscripción","Teléfono","Transporte"];
-
-//   for elem in credits_arr{
-//     conn.execute("INSERT INTO credits (name,amount,payments,started_at,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,datetime('now'),datetime('now'),false)",
-//     &[&elem.to_string()]).unwrap();
-//   }
-
-// }

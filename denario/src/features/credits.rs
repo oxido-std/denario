@@ -1,8 +1,5 @@
-use std::fmt::format;
-
 use actix_web::{get,post,patch,delete, HttpResponse, Responder, web};
 use serde_json::json;
-use chrono::{self, NaiveDate, Datelike};
 use rusqlite::{ Connection};
 
 use crate::models::credit_model::SQLCredit;
@@ -87,7 +84,7 @@ async fn update_credit(path: web::Path<(u32,)>, data: web::Json<DtoCredit>) -> i
 
     let id=path.into_inner().0;
     let data=data.into_inner();
-    // insert
+    // update
     let name=data.name.to_string();
     let comment=data.comment.to_string();
     let amount=data.amount.to_string();
@@ -117,7 +114,7 @@ async fn delete_credit(path: web::Path<(u32,)>) -> impl Responder {
     let _ =conn.execute(&sql,[]);
 
     // debería borrar cada uno de los regitros asociados a un crédito.
-    todo!();
+    // todo!();
 
     HttpResponse::Ok().json(json!({"success": true,"deleted": id}   ))
 }
@@ -155,39 +152,39 @@ fn execute_query_and_parse(conn: &Connection, sql:&str) -> Vec<Credit>{
 
 fn create_record_2_credit(conn:&Connection,name:&str,amount:f32,payments:u16,first_payment_date:&String,category_id:i64,credit_id:i64){
     
-    if first_payment_date.starts_with("-"){
-        // obtengo la fecha
-        let date=chrono::offset::Utc::now();
+    // if first_payment_date.starts_with("-"){
+    //     // obtengo la fecha
+    //     let date=chrono::offset::Utc::now();
         
-        let day=date.day();
-        let mut month=date.month();
+    //     let day=date.day();
+    //     let mut month=date.month();
 
-        let day_str:String;
-        if day < 10{
-            day_str=format!("0{day}");
-        }else{
-            day_str=format!("{day}");
-        }
+    //     let day_str:String;
+    //     if day < 10{
+    //         day_str=format!("0{day}");
+    //     }else{
+    //         day_str=format!("{day}");
+    //     }
 
-        let month_str:String;
-        // si el día es mayor a 25 entoces pago la primer cuota el próximo mes, sino la pago este
-        if day > 25{
-            // siempre y cuando el mes no sea diciembre lo incremento
-            if month != 12{
-                month+=1;
-            }else{
-                month=1; // es enero
-            }
-        }
-        if month < 10{
-            month_str=format!("0{month}");
-        }else{
-            month_str=format!("{month}");
-        }
+    //     let month_str:String;
+    //     // si el día es mayor a 25 entoces pago la primer cuota el próximo mes, sino la pago este
+    //     if day > 25{
+    //         // siempre y cuando el mes no sea diciembre lo incremento
+    //         if month != 12{
+    //             month+=1;
+    //         }else{
+    //             month=1; // es enero
+    //         }
+    //     }
+    //     if month < 10{
+    //         month_str=format!("0{month}");
+    //     }else{
+    //         month_str=format!("{month}");
+    //     }
 
-        let year=date.year().to_string();
-        let first_payment_date=format!("{year}-{month_str}-{day_str}");
-    }
+    //     let year=date.year().to_string();
+    //     let first_payment_date=format!("{year}-{month_str}-{day_str}");
+    // }
 
     for i in 1..payments+1{
         let current_payment=i.try_into().unwrap();
@@ -204,10 +201,9 @@ fn insert_record_2_credit(conn:&Connection,name:&str,amount:f32,current_payment:
         comment:format!("_CID{credit_id}_ CUOTA: {current_payment}/{payments}"),
         record_date:fist_paymente_date.to_string(),
         category_id:category_id,
+        is_mutable:false,
     };
 
     let sql=Record::get_query_insert_future(current_payment);
-    // println!("{:?}",sql);
-    // println!("{:?}",new_record);
     let _ =conn.execute(&sql,&[&new_record.name,&amount.to_string(),&new_record.amount_io,&new_record.comment,&new_record.record_date,&new_record.category_id.to_string()]);
 }

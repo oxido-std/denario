@@ -12,10 +12,11 @@ pub struct Record{
     pub created_at:String,
     pub updated_at:String,
     pub is_deleted:bool,
+    pub is_mutable:bool,
 }
 pub trait SQLRecord {
     fn get_query_insert() -> String{
-        format!("INSERT INTO records (name,amount,amount_io,comment,record_date,category_id,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,?5,?6,datetime('now'),datetime('now'),false)")
+        format!("INSERT INTO records (name,amount,amount_io,comment,record_date,category_id,created_at,updated_at,is_deleted,is_mutable) VALUES (?1,?2,?3,?4,?5,?6,datetime('now'),datetime('now'),false,true)")
     }
     
     /// Esta función cambia la fecha del registro para poder utilizarla con las funcions SQL de
@@ -23,15 +24,15 @@ pub trait SQLRecord {
     /// date([FECHA],'+[CANT] [DAY /MONTH / YEARS])
 
     fn get_query_insert_future(time_plus:u8) -> String{
-        format!("INSERT INTO records (name,amount,amount_io,comment,record_date,category_id,created_at,updated_at,is_deleted) VALUES (?1,?2,?3,?4,date(?5,'+{} month'),?6,datetime('now'),datetime('now'),false)",time_plus)
+        format!("INSERT INTO records (name,amount,amount_io,comment,record_date,category_id,created_at,updated_at,is_deleted,is_mutable) VALUES (?1,?2,?3,?4,date(?5,'+{} month'),?6,datetime('now'),datetime('now'),false,false)",time_plus)
     }
 
     fn get_query_update(id:u32) -> String{
-        format!("UPDATE records SET name=?1,amount=?2,amount_io=?3,comment=?4,record_date=?5,category_id=?6,updated_at=datetime('now') WHERE id={}",id)
+        format!("UPDATE records SET name=?1,amount=?2,amount_io=?3,comment=?4,record_date=?5,category_id=?6,updated_at=datetime('now') WHERE id={} AND is_mutable=1",id)
     }
 
     fn get_query_delete(id:u32) -> String{
-        format!("UPDATE records SET is_deleted=1, updated_at=datetime('now') WHERE id={}",id)
+        format!("UPDATE records SET is_deleted=1, updated_at=datetime('now') WHERE id={} AND is_mutable=1",id)
     }
 }
 
@@ -55,6 +56,7 @@ pub struct DtoRecord{
     pub comment:String,
     pub record_date:String,
     pub category_id:i64,
+    pub is_mutable:bool,
 }
 
 #[derive(Debug,Deserialize)]

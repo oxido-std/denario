@@ -214,7 +214,8 @@ async fn find_all_records_amounts_io_by_date(path: web::Path<(u8,u16)>) -> impl 
 
 
 
-///
+/// For Records
+/// 
 /// this function make a preperare statemen and execute a query.
 /// Then the results is parsed into a vector to serialize as json
 /// 
@@ -233,6 +234,7 @@ fn execute_query_and_parse(conn: &Connection, sql:&str) -> Vec<Record>{
             created_at: row.get(7)?,
             updated_at: row.get(8)?,
             is_deleted: row.get(9)?,
+            is_mutable: row.get(10)?,
         })
     }).unwrap();
 
@@ -243,6 +245,11 @@ fn execute_query_and_parse(conn: &Connection, sql:&str) -> Vec<Record>{
     }
     return result_vec;
 }
+
+/// FOR CATEGORY
+/// this function make a preperare statemen and execute a query.
+/// Then the results is parsed into a vector to serialize as json
+/// 
 
 fn execute_query_and_parse_record2categories(conn: &Connection, sql:&str) -> Vec<Record2Categories>{
     let mut stmt = conn.prepare(&sql).unwrap();
