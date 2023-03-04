@@ -14,6 +14,23 @@ pub struct Record{
     pub is_deleted:bool,
     pub is_mutable:bool,
 }
+
+#[derive(Debug,serde::Serialize)]
+/// This is just for SELECT query. You will get the record element JOIN the category name.
+pub struct RecordAndCategory{
+    pub id:i64,
+    pub name:String,
+    pub amount:f32,
+    pub amount_io:String, // in / out
+    pub comment:String,
+    pub record_date:String,
+    pub category_id:i64,
+    pub created_at:String,
+    pub updated_at:String,
+    pub is_deleted:bool,
+    pub is_mutable:bool,
+    pub category_name:String,
+}
 pub trait SQLRecord {
     fn get_query_insert() -> String{
         format!("INSERT INTO records (name,amount,amount_io,comment,record_date,category_id,created_at,updated_at,is_deleted,is_mutable) VALUES (?1,?2,?3,?4,?5,?6,datetime('now'),datetime('now'),false,true)")

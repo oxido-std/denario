@@ -34,13 +34,15 @@ Cada uno de estas secciones tiene un CRUD (Alta, Baja, Modificación)
 
 [] Crear la estructura básica de la applicación
     [x] Actix
-    [] _Features (Una carpeta con mod.rs / service.rs (modelo) / routes.rs / controller )_ (OPCIONAL)
+    [] _Features (Una carpeta con mod.rs / models (modelo) / features (routes + controller) )_ (OPCIONAL)
     [] Backup de esta estructura para futuros proyectos sin importar de que forma se almacene la información en una base de datos
+    [] Realizar un sistema de login, usuarios y roles. ¿Por qué? Porque el frontend se puede acceder desde toda la red.
 [x] Crear la estructura de la app con sus cruds
     [x] Registros
     [x] Categorías
     [x] Créditos
     [x] Dolar (prioridad baja)
+[x] Relizar una feature para acceder a los balances
 [] hacer la pantalla principal
     [] Mostrar los registros
     [] Mostrar los subtotales del mes
@@ -58,6 +60,7 @@ Cada uno de estas secciones tiene un CRUD (Alta, Baja, Modificación)
 - Rust
   - Actix
   - SQLITE
-- Astro
+- HTML
 - Vuejs
+- CSS
 
