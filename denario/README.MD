@@ -32,6 +32,7 @@ Cada uno de estas secciones tiene un CRUD (Alta, Baja, Modificación)
 
 ## Todo
 
+// BACKEND
 [] Crear la estructura básica de la applicación
     [x] Actix
     [] _Features (Una carpeta con mod.rs / models (modelo) / features (routes + controller) )_ (OPCIONAL)
@@ -43,6 +44,10 @@ Cada uno de estas secciones tiene un CRUD (Alta, Baja, Modificación)
     [x] Créditos
     [x] Dolar (prioridad baja)
 [x] Relizar una feature para acceder a los balances
+[] Agregar un control para que en caso de que el mes anterior haya quedado saldo a favor lo cargue como un ingreso del mes siguiente.
+
+
+// FRONT END
 [] hacer la pantalla principal
     [] Mostrar los registros
     [] Mostrar los subtotales del mes
@@ -52,7 +57,7 @@ Cada uno de estas secciones tiene un CRUD (Alta, Baja, Modificación)
     [] Poder navegar a meses anteriores.
     [] Crear categorías especiales desde el código para calcular los créditos
     [] Poder navegar por las categorías para ver el total gastado en un rango de tiempo.
-    [] 
+    [] Agregar un control para actualizar el precio del dolar.
 
 [Migración de la base de datos]
 

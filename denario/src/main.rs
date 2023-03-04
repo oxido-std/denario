@@ -21,6 +21,10 @@ async fn health_checker_handler() -> impl Responder {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
 
+    // app info
+    const APP_NAME: &str = env!("CARGO_PKG_NAME");
+    const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
+
     dotenv().ok();
 
     let server_host=env::var("SERVER_HOST").unwrap();
@@ -33,6 +37,7 @@ async fn main() -> std::io::Result<()> {
     env_logger::init();
 
     println!("🦀-----------------------------------------------------------🦀");
+    println!("                  🪙 {} [{}]",APP_NAME,APP_VERSION);
     println!("   🚀 Server started successfully at http://{}:{}",server_host,server_port);
     println!("🦀-----------------------------------------------------------🦀");
 

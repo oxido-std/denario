@@ -14,7 +14,7 @@ async fn find_all_records_filtered(filters: web::Query<FiltersRecord>) -> impl R
 
     let conn=get_db_connection();
     
-    let sql=format!("SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE is_deleted=0 ORDER BY {} {} LIMIT {} OFFSET {}",filters.orderby_column.to_string(),filters.orderby.to_string(),filters.limit.to_string(),filters.skip.to_string());
+    let sql=format!("SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE R.is_deleted=0 ORDER BY {} {} LIMIT {} OFFSET {}",filters.orderby_column.to_string(),filters.orderby.to_string(),filters.limit.to_string(),filters.skip.to_string());
     let result_vec=execute_query_and_parse_with_category_name(&conn, &sql);
 
     HttpResponse::Ok().json(json!({"status": "200","records": result_vec}))
@@ -25,7 +25,7 @@ async fn find_all_records() -> impl Responder {
 
     let conn=get_db_connection();
     
-    let sql="SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE is_deleted=0 ORDER BY R.record_date ASC";
+    let sql="SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE R.is_deleted=0 ORDER BY R.record_date ASC";
     let result_vec=execute_query_and_parse_with_category_name(&conn, &sql);
 
     HttpResponse::Ok().json(json!({"status": "200","records": result_vec}))
@@ -36,7 +36,7 @@ async fn find_one_record(path: web::Path<(u32,)>) -> impl Responder {
     let conn=get_db_connection();
     
     let id=path.into_inner().0;
-    let sql=format!("SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE id= {id} AND is_deleted=0");
+    let sql=format!("SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE R.id= {id} AND R.is_deleted=0");
     let result_vec=execute_query_and_parse_with_category_name(&conn, &sql);
 
     HttpResponse::Ok().json(json!({"success": true,"records": result_vec}))
@@ -47,7 +47,7 @@ async fn find_one_record_by_category(path: web::Path<(u64,)>) -> impl Responder 
     let conn=get_db_connection();
     
     let id=path.into_inner().0;
-    let sql=format!("SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE category_id={id} AND is_deleted=0");
+    let sql=format!("SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE category_id={id} AND R.is_deleted=0");
     let result_vec=execute_query_and_parse_with_category_name(&conn, &sql);
 
     HttpResponse::Ok().json(json!({"success": true,"records": result_vec}))
@@ -68,7 +68,7 @@ async fn find_all_records_by_date(path: web::Path<(u8,u16)>) -> impl Responder {
         month_str=format!("{month}");
     }
 
-    let sql=format!("SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE record_date LIKE \'{year}-{month_str}-%\' AND is_deleted=0 ORDER BY R.record_date ASC");
+    let sql=format!("SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE record_date LIKE \'{year}-{month_str}-%\' AND R.is_deleted=0 ORDER BY R.record_date ASC");
     let result_vec=execute_query_and_parse_with_category_name(&conn, &sql);
 
     HttpResponse::Ok().json(json!({"success": true,"records": result_vec}))
@@ -97,7 +97,7 @@ async fn find_all_records_by_date_full(path: web::Path<(u8,u8,u16)>) -> impl Res
         month_str=format!("{month}");
     }
 
-    let sql=format!("SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE record_date LIKE \'{year}-{month_str}-{day_str}\' AND is_deleted=0 ORDER BY R.record_date ASC");
+    let sql=format!("SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE record_date LIKE \'{year}-{month_str}-{day_str}\' AND R.is_deleted=0 ORDER BY R.record_date ASC");
     // println!("{:?}",sql);
     let result_vec=execute_query_and_parse_with_category_name(&conn, &sql);
 
@@ -120,7 +120,7 @@ async fn find_all_records_by_category_and_date(path: web::Path<(u64,u8,u16)>) ->
         month_str=format!("{month}");
     }
 
-    let sql=format!("SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE record_date LIKE \'{year}-{month_str}-%\' AND category_id={category_id} AND is_deleted=0 ORDER BY R.record_date ASC");
+    let sql=format!("SELECT R.*,C.name as category_name FROM records R LEFT JOIN categories C ON R.category_id=C.id WHERE record_date LIKE \'{year}-{month_str}-%\' AND R.category_id={category_id} AND R.is_deleted=0 ORDER BY R.record_date ASC");
     let result_vec=execute_query_and_parse_with_category_name(&conn, &sql);
 
     HttpResponse::Ok().json(json!({"success": true,"records": result_vec}))
