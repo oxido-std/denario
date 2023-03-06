@@ -1,13 +1,14 @@
 [package]
 name = "denario"
 authors = ["Oxido-std"]
-version = "1.0.2"
+version = "1.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 actix-cors = "0.6.4"
+actix-files = "0.6.2"
 actix-web = "4.3.0"
 chrono = { version = "0.4.23", features = ["serde"] }
 dotenv = "0.15.0"

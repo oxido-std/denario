@@ -1,6 +1,6 @@
-use actix_web::middleware::Logger;
-use actix_web::{get, App, HttpResponse, HttpServer, Responder};
-use serde_json::json;
+use actix_web::{middleware::Logger};
+use actix_files as fs;
+use actix_web::{App, HttpServer };
 use dotenv::dotenv;
 use std::env;
 
@@ -9,14 +9,6 @@ mod features;
 mod db_conn;
 mod models;
 
-
-
-#[get("/api/healthchecker")]
-async fn health_checker_handler() -> impl Responder {
-    const MESSAGE: &str = "Build Simple CRUD API with Rust, SQLX, SQLITE,and Actix Web";
-
-    HttpResponse::Ok().json(json!({"status": "success","message": MESSAGE}))
-}
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -43,7 +35,7 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(move || {
         App::new()
-            .service(health_checker_handler)
+            .service(fs::Files::new("/","./public").index_file("index.html"))
             .service(seeds::req_seed_setup)
             // Categories
             .service(features::categories::find_all_categories)
