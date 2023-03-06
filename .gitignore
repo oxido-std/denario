@@ -1,6 +1,8 @@
 /build
 /build/*
 
+/mono-main
+/mono-main/*
 # backend
 /denario/target
 /denario/.env

@@ -31,11 +31,11 @@ async fn main() -> std::io::Result<()> {
     println!("🦀-----------------------------------------------------------🦀");
     println!("                  🪙 {} [{}]",APP_NAME,APP_VERSION);
     println!("   🚀 Server started successfully at http://{}:{}",server_host,server_port);
+    println!("   🔗 View in webbrowser at http://{}:{}/",server_host,server_port);
     println!("🦀-----------------------------------------------------------🦀");
 
     HttpServer::new(move || {
         App::new()
-            .service(fs::Files::new("/","./public").index_file("index.html"))
             .service(seeds::req_seed_setup)
             // Categories
             .service(features::categories::find_all_categories)
@@ -71,6 +71,8 @@ async fn main() -> std::io::Result<()> {
             .service(features::balance::find_amouts_io_by_month)
             .service(features::balance::find_amouts_io_by_category_and_month)
             .service(features::balance::sum_amouts_io_by_month)
+            // STATIC
+            .service(fs::Files::new("/","./ui").index_file("index.html"))
             .wrap(Logger::default())
     })
     .bind((server_host, server_port))?

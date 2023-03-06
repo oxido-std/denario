@@ -1,10 +1,20 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <navbar-main></navbar-main>
+  <div class="container-fluid">
+    <router-view/>
+  </div>
 </template>
+
+<script>
+import NavbarMain from './shared/NavbarMain.vue'
+
+export default {
+  components: {
+    NavbarMain
+  }
+
+}
+</script>
 
 <style>
 #app {

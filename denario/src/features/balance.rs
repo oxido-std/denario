@@ -38,7 +38,7 @@ pub async fn find_amouts_io_by_month(path: web::Path<(String,u8,u16)>) -> impl R
 }
 /// Get all the amounts by amout_in (in/out) With categories by month and year
 
-#[get("/balances/total_amount_of_category/{category}/{month}/{year}")]
+#[get("/balances/total_amount_of_category_name/{category}/{month}/{year}")]
 pub async fn find_amouts_io_by_category_and_month(path: web::Path<(String,u8,u16)>) -> impl Responder {
     let conn=get_db_connection();
     
