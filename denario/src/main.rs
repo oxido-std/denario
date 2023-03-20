@@ -1,4 +1,5 @@
-use actix_web::{middleware::Logger};
+use actix_cors::Cors;
+use actix_web::{middleware::Logger, http};
 use actix_files as fs;
 use actix_web::{App, HttpServer };
 use dotenv::dotenv;
@@ -8,7 +9,6 @@ mod seeds;
 mod features;
 mod db_conn;
 mod models;
-
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -35,7 +35,19 @@ async fn main() -> std::io::Result<()> {
     println!("🦀-----------------------------------------------------------🦀");
 
     HttpServer::new(move || {
+        // CORS
+        let cors = Cors::default()
+              .allowed_origin("http://localhost:8080")
+              .allowed_origin_fn(|origin, _req_head| {
+                  origin.as_bytes().ends_with(b"8080")
+              })
+              .allowed_methods(vec!["GET", "POST","PATCH","DELETE"])
+              .allowed_headers(vec![http::header::AUTHORIZATION, http::header::ACCEPT])
+              .allowed_header(http::header::CONTENT_TYPE)
+              .max_age(3600);
+        // APP 
         App::new()
+            .wrap(cors)
             .service(seeds::req_seed_setup)
             // Categories
             .service(features::categories::find_all_categories)
