@@ -10,6 +10,9 @@
 /denario/denarios_sqlite.db
 /denario/*.exe
 
+/py-parse-cvs
+/py-parse-cvs/*
+
 # fronted
 
 # Logs
