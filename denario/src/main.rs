@@ -19,9 +19,9 @@ async fn main() -> std::io::Result<()> {
 
     dotenv().ok();
 
-    let server_host=env::var("SERVER_HOST").unwrap();
-    let server_port=env::var("SERVER_PORT").unwrap();
-    let server_port=server_port.parse::<u16>().unwrap();
+    let server_host=env::var("SERVER_HOST").expect("SERVER_HOST must be set");
+    let server_port=env::var("SERVER_PORT").expect("SERVER_PORT must be set");
+    let server_port=server_port.parse::<u16>().expect("SERVER_PORT must be a number");
 
     if std::env::var_os("RUST_LOG").is_none() {
         std::env::set_var("RUST_LOG", "actix_web=info");
