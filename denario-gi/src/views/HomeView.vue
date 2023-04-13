@@ -2,19 +2,28 @@
   <div class="home" v-if="!isBlocked">
     <div class="controls">
         <!-- CONTROLES  -->
-      <button @click="monthPrev" class="btn btn-primary">
-              ➖
-            </button>
-            {{ date_month }} / {{ date_year }}
-          <button @click="monthNext" class="btn btn-primary">
-            ➕
-          </button>
-          <button @click="getDate" class="btn btn-primary">
-            Hoy
-          </button>
-          <button @click="openAddRegisterForm" class="btn btn-success">
-            + reg
-      </button>
+        <button @click="monthPrev" class="btn btn-primary">
+          ➖
+        </button>
+        {{ date_month }} / {{ date_year }}
+        <button @click="monthNext" class="btn btn-primary">
+          ➕
+        </button>
+        <button @click="loadCurrentDate" class="btn btn-primary">
+          Hoy
+        </button>
+        <button @click="openAddRegisterForm" class="btn btn-success">
+          + reg
+        </button>
+        <select v-model="selectedCategory" @change="loadDateByCategory">
+          <option value="0" selected>Todas</option>
+          <option v-for="category in categories" :key="category.id" :value="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+        <!-- <button @click="loadDateByCategory" class="btn btn-success">
+          Ver
+        </button> -->
     </div>
   
     <!-- BALANCE -->
@@ -56,9 +65,9 @@ import RecordForm from '@/modules/dash/RecordForm.vue'
 // helpers
 import {getCurrentDate} from '@/helpers/denario_dates'
 // API
-import {getBalanceSumAmount,getBalanceAmountWithCategories} from '@/api/balances'
-import {getRecordsFromDate} from '@/api/records'
-import {getCategories} from '@/api/categories'
+import {getBalanceSumAmount,getBalanceAmountWithCategories,getBalanceAmountByCategoryId} from '@/api/balances'
+import {getRecordsFromDate,getRecordsFromDateAndCategory} from '@/api/records'
+import {getAllCategories} from '@/api/categories'
 
 
 
@@ -76,18 +85,19 @@ export default {
       total_in:0,
       total_out:0,
       total_difference:0,
-      date_month:1,
-      date_year:2020,
+      date_month:9,
+      date_year:2022,
       records:[],
       categories:[],
       balanceResume:[],
+      selectedCategory:0,
     }
   },
   methods:{
-    getCategories(){
-      this.categories=getCategories()
+    async getCategories(){
+      this.categories= await getAllCategories()
     },
-    getDate(){
+    async getDate(){
       const {month,year}=getCurrentDate();
       this.date_month=month
       this.date_year=year
@@ -95,12 +105,36 @@ export default {
     async getRecords(){
       this.records=await getRecordsFromDate(this.date_month,this.date_year)
     },
+    async getRecordsByCategory(){
+      if (this.selectedCategory!=0){
+        this.records=await getRecordsFromDateAndCategory(this.date_month,this.date_year,this.selectedCategory)
+      }else{
+        // get all records of the selected month
+        this.updateRecords()
+      }
+    },
     async getBalance(){
       this.total_in=await getBalanceSumAmount("in",this.date_month,this.date_year)
       this.total_out=await getBalanceSumAmount("out",this.date_month,this.date_year)
       this.total_difference=this.total_in-this.total_out;
     },
-    async getBalanceResume(){
+    async showBalanceAmountIo(balance){
+      console.log(balance)
+      this.total_in=0;
+      this.total_out=0;
+      this.total_difference=0;
+
+      for (let index = 0; index < balance.length; index++) {
+        const element = balance[index];
+        console.log(element.amount_io);
+        if (element.amount_io=="in"){
+          this.total_in+=element.amount
+        }else{
+          this.total_out+=element.amount
+        }
+      }
+    },
+    async getBalanceWithCategory(){
       const resume_in=await getBalanceAmountWithCategories("in",this.date_month,this.date_year)
       const resume_out= await getBalanceAmountWithCategories("out",this.date_month,this.date_year)
       this.balanceResume=resume_in
@@ -132,17 +166,25 @@ export default {
     closeAddRegisterForm(){
       this.isBlocked=false
     },
-    init(){
+    async init(){
+      this.getDate()
+      await this.getBalance()
+      await this.getRecords()
+      await this.getCategories()
+
+    },
+    async loadCurrentDate(){
       this.getDate()
       this.getBalance()
-      this.getRecords()
-      this.getCategories()
-      this.getBalanceResume()
+      await this.getRecords()
     },
-    updateRecords(){
-      this.getBalance()
-      this.getRecords()
-      this.getBalanceResume()
+    async loadDateByCategory(){
+      await this.getRecordsByCategory()
+      await this.showBalanceAmountIo(this.records)
+    },
+    async updateRecords(){
+      await this.getBalance()
+      await this.getRecords()
     },
   },
   computed:{

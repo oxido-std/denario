@@ -16,7 +16,7 @@
         <tr v-for="record in records" :key="record.id">
           <!-- <td>{{record.id}}</td> -->
           <td :class=record.amount_io>$ {{record.amount}}</td>
-          <td class="tooltip-bottom" data-tooltip="{{ record.comment }}">{{ record.name }}</td>
+          <td class="tooltip-bottom" data-tooltip="{{record.comment}}">{{ record.name }}</td>
           <td>{{record.category_name}}</td>
           <!-- <td>{{record.comment}}</td> -->
           <td>{{record.record_date}}</td>
@@ -36,11 +36,11 @@
 <script>
 
 export default {
-    // props:{
-    //     records:{
-    //         type:Array,
-    //     }
-    // },
+    props:{
+        records:{
+            type:Array,
+        }
+    },
 }
 </script>
 

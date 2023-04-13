@@ -3,44 +3,48 @@ import { apiURL } from './api';
 
 export const getRecordsFromDate=async (month,year)=>{
     const {data} = await axios.get(apiURL+`records/by_date/${month}/${year}`)
-    .then( r => r).catch((e)=>{
-        console.error(e)
-    });
+                    .then( r => r).catch((e)=>{
+                        console.error(e)
+                    });
 
     return data.records;
 }
 
-export const addRecord=(name,amount,amount_io,comment,record_date,category_id)=>{
-    // newRecord={
-    //     "name":"Producto",   
-    //     "amount":40.0,
-    //     "amount_io":"out",
-    //     "comment":"-",
-    //     "record_date":"2023-01-26 15:32:00",
-    //     "category_id":4
-    // }
+export const getRecordsFromDateAndCategory=async (month,year,category_id)=>{
+
+    if (month<10) month='0'+month;
+
+    const {data} = await axios.get(apiURL+`records/by_category/${category_id}/date/${month}/${year}`)
+                    .then( r => r).catch((e)=>{
+                        console.error(e)
+                    });
+
+    return data.records;
+}
+
+export const addRecord=async (name,amount,amount_io,comment,record_date,category_id,is_mutable)=>{
     const newRecord={
         name,
-        amount,
+        amount:parseFloat(amount),
         amount_io,
         comment,
         record_date,
-        category_id
+        category_id:parseInt(category_id),
+        is_mutable,
     }
+
     console.log(newRecord)
-    // const {data} = axios({
-    //     method:'post',
-    //     url:apiURL+`records/by_date/`,
-    //     headers:{},
-    //     data:{
-    //         newRecord
-    //     }
-    // }).then( r => r)
-    // .catch((e)=>{
-    //     console.error(e)
-    // });
 
-    // console.log(data)
-    // const {data} = await axios.get(apiURL+`records/by_date/${month}/${year}`)
+    //send data to api with axios post method on the body json format
 
+    const {data}= await axios({
+        method: 'post',
+        url: apiURL+`records`,
+        headers:{},
+        data: newRecord,
+    }).then( r => r).catch((e)=>{
+        console.error(e)
+    });
+
+    return data;
 }
