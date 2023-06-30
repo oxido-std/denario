@@ -50,6 +50,7 @@ impl AppSetup {
     }
 
     pub fn create_folders(&self){
+        // self.mk_dir_in_current_folder("config".to_string());
         self.mk_dir_in_current_folder("public".to_string());
         self.mk_dir_in_current_folder("assets".to_string());
         self.mk_dir_in_current_folder("uploads".to_string());
@@ -63,8 +64,8 @@ impl AppSetup {
 }
 
 
-#[get("/run_setup")]
-pub async fn run_setup() -> impl Responder {
+#[get("/app_run_setup")]
+pub async fn app_run_setup() -> impl Responder {
     let app_setup = AppSetup::new();
     app_setup.main()
 }

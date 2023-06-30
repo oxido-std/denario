@@ -52,7 +52,8 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .wrap(cors)
             // app_setup
-            .service(features::app_setup::run_setup)
+            .service(features::app_setup::app_run_setup)
+            .service(features::app_status::app_check_status)
             // STATIC
             .service(fs::Files::new("/","./public").index_file("index.html"))
             .wrap(Logger::default())
