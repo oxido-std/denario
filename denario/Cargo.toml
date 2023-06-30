@@ -1,7 +1,7 @@
 [package]
 name = "denario"
-authors = ["Oxido-std"]
-version = "1.1.21"
+authors = ["elanticrypt0"]
+version = "2.0.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -11,9 +11,9 @@ actix-cors = "0.6.4"
 actix-files = "0.6.2"
 actix-web = "4.3.0"
 chrono = { version = "0.4.23", features = ["serde"] }
+diesel = {version ="2.1.0", features = ["postgres", "r2d2", "uuid", "chrono"]}
 dotenv = "0.15.0"
 env_logger = "0.10.0"
-rusqlite = { version = "0.28.0", features = ["bundled"] }
 serde = { version = "1.0.152", features = ["derive"] }
 serde_json = "1.0.93"
 uuid = { version = "1.3.0", features = ["serde", "v4"] }

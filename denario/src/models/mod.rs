@@ -1,5 +1,3 @@
-pub mod record_model;
-pub mod dolar_model;
-pub mod credit_model;
-pub mod category_model;
-pub mod balance;
+pub mod records_model;
+pub mod categories_model;
+pub mod credits_model;

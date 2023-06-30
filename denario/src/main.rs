@@ -5,10 +5,11 @@ use actix_web::{App, HttpServer };
 use dotenv::dotenv;
 use std::env;
 
-mod seeds;
-mod features;
 mod db_conn;
-mod models;
+mod features;
+pub mod models;
+pub mod schema;
+
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -29,7 +30,7 @@ async fn main() -> std::io::Result<()> {
     env_logger::init();
 
     println!("🦀-----------------------------------------------------------🦀");
-    println!("                  🪙 {} [{}]",APP_NAME,APP_VERSION);
+    println!("                  🪙  {} [{}]",APP_NAME,APP_VERSION);
     println!("   🚀 Server started successfully at http://{}:{}",server_host,server_port);
     println!("   🔗 View in webbrowser at http://{}:{}/",server_host,server_port);
     println!("🦀-----------------------------------------------------------🦀");
@@ -45,49 +46,27 @@ async fn main() -> std::io::Result<()> {
               .allowed_headers(vec![http::header::AUTHORIZATION, http::header::ACCEPT])
               .allowed_header(http::header::CONTENT_TYPE)
               .max_age(3600);
+        // app_setup
+        // let app_setup = features::app_setup::AppSetup::new();
         // APP 
         App::new()
             .wrap(cors)
-            .service(seeds::req_seed_setup)
-            // Categories
-            .service(features::categories::find_all_categories)
-            .service(features::categories::find_one_category)
-            .service(features::categories::create_category)
-            .service(features::categories::update_category)
-            .service(features::categories::delete_category)
-            // Credits
-            .service(features::credits::find_all_credits_filtered)
-            .service(features::credits::find_all_credits)
-            .service(features::credits::find_one_credit)
-            .service(features::credits::create_credit)
-            .service(features::credits::update_credit)
-            .service(features::credits::delete_credit)
-            // Dolars
-            .service(features::dolars::find_all_dolars)
-            .service(features::dolars::find_one_dolar)
-            .service(features::dolars::get_last_dolar)
-            .service(features::dolars::create_dolar)
-            .service(features::dolars::delete_dolar)
-            // Records
-            .service(features::records::find_all_records_filtered)
-            .service(features::records::find_all_records)
-            .service(features::records::find_all_records_by_date_full)
-            .service(features::records::find_all_records_by_date)
-            .service(features::records::find_all_records_by_category_and_date)
-            .service(features::records::find_one_record)
-            .service(features::records::find_one_record_by_category)
-            .service(features::records::create_record)
-            .service(features::records::update_record)
-            .service(features::records::delete_record)
-            // BALANCE
-            .service(features::balance::find_amouts_io_by_month)
-            .service(features::balance::find_amouts_io_by_category_and_month)
-            .service(features::balance::sum_amouts_io_by_month)
+            // app_setup
+            .service(features::app_setup::run_setup)
             // STATIC
-            .service(fs::Files::new("/","./ui").index_file("index.html"))
+            .service(fs::Files::new("/","./public").index_file("index.html"))
             .wrap(Logger::default())
     })
     .bind((server_host, server_port))?
     .run()
     .await
+}
+
+
+pub fn run_setup(){
+    dotenv().ok();
+    let db_conn = db_conn::establish_connection();
+    let app_setup_eneabled = env::var("APP_SETUP").expect("APP_SETUP must be set") == "true";
+    let app_setup = features::app_setup::AppSetup { db_conn, app_setup_eneabled };
+    app_setup.main();
 }
