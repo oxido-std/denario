@@ -16,7 +16,7 @@ impl AppSetup {
     pub fn new() -> Self {
         dotenv().ok();
         let db_conn = establish_connection();
-        let app_setup_eneabled = env::var("APP_SETUP").expect("APP_SETUP must be set") == "true";
+        let app_setup_eneabled = env::var("APP_SETUP_ENABLED").expect("APP_SETUP must be set") == "true";
         return Self { db_conn, app_setup_eneabled }
     }
     
